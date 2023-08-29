@@ -4,6 +4,8 @@ from threading import Thread
 import socket, time
 from datetime import datetime
 
+LOGOFILE="logo.png"
+
 hostname=socket.gethostname()
 IPAddr=socket.gethostbyname(hostname)
 
@@ -42,9 +44,10 @@ def main():
 #try:
     LCD=getLCD()
     LCD.LCD_Clear()
-    #image = Image.new("RGB", (LCD.width, LCD.height), "BLACK")
-    image = Image.open('cblogo.png')
-    image = image.resize((128,128))
+    image = Image.new("RGB", (LCD.width, LCD.height), "BLACK")
+    fg_image = Image.open(LOGOFILE)
+    fg_image = fg_image.resize((120,32), Image.ANTIALIAS)
+    image.paste(fg_image,(4,48), fg_image)
     draw = ImageDraw.Draw(image)
     #font = ImageFont.truetype('/usr/share/fonts/truetype/freefont/FreeMonoBold.ttf', 16)
     print ("***draw outline")

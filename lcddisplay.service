@@ -1,0 +1,11 @@
+ [Unit]
+ Description=LCD Screen Service
+ After=multi-user.target
+
+ [Service]
+ Type=idle
+ WorkingDirectory=/home/pi/Desktop/waveshareLCD
+ ExecStart=/usr/bin/python3 /home/pi/Desktop/waveshareLCD/main.py
+
+ [Install]
+ WantedBy=multi-user.target

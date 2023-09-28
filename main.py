@@ -3,6 +3,7 @@ import LCD_Config
 from threading import Thread
 import socket, time
 from datetime import datetime
+import gpio_inputs
 
 LOGOFILE="logo.png"
 
@@ -55,32 +56,32 @@ def main():
     draw.line([(127,0),(127,127)], fill = "WHITE",width = 1)
     draw.line([(127,127),(0,127)], fill = "WHITE",width = 1)
     draw.line([(0,127),(0,0)], fill = "WHITE",width = 1)
-    print ("***draw rectangle")
-    draw.rectangle([(18,10),(110,20)],fill = "RED")
-
-    print ("***draw text")
-    #LCD.LCD_ShowImage(image,0,0)
+    lastButton=None
     while True:
-        #image = Image.open('time.bmp')
         LCD.LCD_ShowImage(image,0,0)
         now = datetime.now()
         current_time=now.strftime("%H:%M:%S")
-        draw.rectangle([(10,10),(110,20)],fill = "BLACK")
+        draw.rectangle([(10,10),(80,20)],fill = "BLACK")
         draw.text((10, 10), current_time, fill = "WHITE")
         draw.text((10, 100), 'Host:' + hostname, fill = "GREEN")
         draw.text((10, 110), 'IP: ' + get_ip(), fill = "BLUE")
+        #Need to make this be interrupt driven
+        result=gpio_inputs.readGPIO(draw)
+        if lastButton!=result:
+            print(result)
+            lastButton=result
         LCD.LCD_ShowImage(image,0,0)
         LCD_Config.Driver_Delay_ms(0)
-        time.sleep(1)
-
-    #image = Image.open('time.bmp')
-    #LCD.LCD_ShowImage(image,0,0)
-    #while (True):	
+        time.sleep(.1)
 	
 if __name__ == '__main__':
     main()
-    #Thread(target=clock).start()
 
 #except:
 #	print("except")
 #	GPIO.cleanup()
+
+
+
+
+

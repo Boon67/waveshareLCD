@@ -4,8 +4,8 @@
 
  [Service]
  Type=idle
- WorkingDirectory=/home/pi/Desktop/waveshareLCD
- ExecStart=/usr/bin/python3 /home/pi/Desktop/waveshareLCD/main.py
+ WorkingDirectory=/home/user/Documents/code/waveshareLCD
+ ExecStart=/usr/bin/python3 /home/user/Documents/code/waveshareLCD/main.py
 
  [Install]
  WantedBy=multi-user.target
